@@ -54,6 +54,18 @@ class SystemRoles:
     MANAGER = "Manager"
     TEAM_MEMBER = "Team Member"
 
+class TaskConstants:
+    TO_DO, IN_PROGRESS, CODE_REVIEW, COMPLETED = ['To Do', 'In Progress', 'Code Review', 'Completed']
+    LOW, MEDIUM, HIGH = ['Low', 'Medium', 'High']
+
+    @classmethod
+    def get_status_choices(cls):
+        return [(cls.TO_DO, 'To Do'), (cls.IN_PROGRESS, 'In Progress'), (cls.CODE_REVIEW, 'Code Review'), (cls.COMPLETED, 'Completed')]
+
+    @classmethod
+    def get_priority_choices(cls):
+        return [(cls.LOW, 'Low'), (cls.MEDIUM, 'Medium'), (cls.HIGH, 'High')]
+
 class UserProfileConstants:
     USER_PROFILE_HISTORY_EXCLUDE_FIELDS = ["updated_by", "created_by", 'default_branch', 'created', 'modified']
     ROLE_HISTORY_EXCLUDE_FIELDS = ["updated_by", "created_by", 'created', 'modified']

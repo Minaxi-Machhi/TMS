@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TMS</title>
+  <link rel="stylesheet" type="text/css" href="/loader.css" />
+</head>
+
+<body>
+  <div id="app">
+    <div id="loading-bg">
+      <div class="loading-logo">
+        <!-- SVG Logo -->
+        <svg width="80" height="80" style="max-height: 80; max-width: 80;" viewBox="0 0 183 174" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M128.168 142.016H39.1721V47.3386C39.1721 38.6063 46.4303 31.7122 55.6209 31.7122H144.611V126.39C144.611 135.122 137.359 142.016 128.168 142.016ZM0 39.0659V134.203C0 155.804 18.3753 173.268 41.1103 173.268H141.712C164.441 173.268 182.823 155.804 182.823 134.203V39.0659C182.823 17.4647 164.441 0 141.712 0H41.1103C18.3753 0 0 17.4647 0 39.0659Z"
+            fill="#17B7D0" />
+          <path
+            d="M91.4181 115.795C87.0643 115.795 83.6826 112.578 83.6826 108.441V64.7798C83.6826 60.643 87.0643 57.4258 91.4181 57.4258C95.7718 57.4258 99.1594 60.643 99.1594 64.7798V108.441C99.1594 112.578 95.7718 115.795 91.4181 115.795Z"
+            fill="#17B7D0" />
+          <path
+            d="M121.895 102.492C117.541 102.492 114.153 99.2749 114.153 95.1387V77.6737C114.153 73.5375 117.541 70.3203 121.895 70.3203C126.248 70.3203 129.63 73.5375 129.63 77.6737V95.5979C129.63 99.2749 126.248 102.492 121.895 102.492Z"
+            fill="#17B7D0" />
+          <path
+            d="M61.4376 102.492C57.0839 102.492 53.6963 99.2749 53.6963 95.1387V77.6737C53.6963 73.5375 57.0839 70.3203 61.4376 70.3203C65.7914 70.3203 69.179 73.5375 69.179 77.6737V95.5979C68.69 99.2749 65.3083 102.492 61.4376 102.492Z"
+            fill="#17B7D0" />
+        </svg>
+      </div>
+      <div class="loading">
+        <div class="effect-1 effects"></div>
+        <div class="effect-2 effects"></div>
+        <div class="effect-3 effects"></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+  <script>
+    const loaderColor = localStorage.getItem('materio-initial-loader-bg') || '#FFFFFF'
+    const primaryColor = localStorage.getItem('materio-initial-loader-color') || '#17B7D0'
+
+    if (loaderColor)
+      document.documentElement.style.setProperty('--initial-loader-bg', loaderColor)
+
+    if (primaryColor)
+      document.documentElement.style.setProperty('--initial-loader-color', primaryColor)
+  </script>
+</body>
+
+</html>

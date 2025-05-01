@@ -1,0 +1,33 @@
+.v-data-table {
+  table {
+    tbody {
+      tr {
+        &.v-data-table-group-header-row {
+          td {
+            background: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 👉 Table
+.v-table {
+  .v-table__wrapper {
+    border-radius: 0;
+
+    table {
+      thead {
+        tr {
+          th {
+            color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity)) !important;
+            font-size: 0.8rem;
+            font-weight: 600 !important;
+            letter-spacing: 0.17px !important;
+          }
+        }
+      }
+    }
+  }
+}

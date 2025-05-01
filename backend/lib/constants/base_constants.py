@@ -24,6 +24,7 @@ class Action:
 class FieldConstants:
     PHONE_NUMBER_LENGTH = 12
     PHONE_CODE_LENGTH = 5
+    LOGIN_ATTEMPTS_CACHE_KEY_PREFIX = "Login_Attempts"
     DEFAULT_PHONE_CODE = "966"
     ADDRESS_LENGTH = 200
     NAME_LENGTH = 200
@@ -70,7 +71,6 @@ class UserProfileConstants:
     USER_PROFILE_HISTORY_EXCLUDE_FIELDS = ["updated_by", "created_by", 'default_branch', 'created', 'modified']
     ROLE_HISTORY_EXCLUDE_FIELDS = ["updated_by", "created_by", 'created', 'modified']
     USER_HISTORY_INCLUDE_FIELDS = ["username", "first_name", "last_name", "email", "password", ]
-    MANAGER, SYSTEM_ADMIN, TEAM_MEMBER = ('Manager', 'System Admin', 'Team Member')
     MANAGER, SYSTEM_ADMIN, TEAM_MEMBER = ('Manager', 'System Admin', 'Team Member')
 
     @classmethod

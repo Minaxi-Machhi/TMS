@@ -6,7 +6,7 @@ from lib.serializers import DynamicFieldsModelSerializer
 
 
 class TaskSerializer(DynamicFieldsModelSerializer):
-    project = serializers.StringRelatedField()  # Just show the project name
+    project = serializers.StringRelatedField()
     assigned_to = UserSerializer(read_only=True)
 
     class Meta:

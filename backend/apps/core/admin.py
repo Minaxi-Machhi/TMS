@@ -1,10 +1,8 @@
 from django.contrib import admin
-
 from apps.core.models import UserProfile, Role, ModulePermissions
 from lib.mixin import BaseAdminMixin
 
 
-# Register your models here.
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'user_type', "role", 'contact_number')

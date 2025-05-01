@@ -1,5 +1,6 @@
 from apps.core.serializers import UserSerializer
 from apps.project_management.models import Project
+from apps.task_management.serializers import TaskSerializer
 from lib.serializers import DynamicFieldsModelSerializer
 
 

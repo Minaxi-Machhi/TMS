@@ -4,12 +4,12 @@ export const profileTypeChoices = [
         value: "system_admin"
     },
     {
-        key: "Normal",
-        value: "normal"
+        key: "Team Member",
+        value: "Team Member"
     },
     {
-        key: "Customer",
-        value: "customer"
+        key: "Manager",
+        value: "Manager"
     }
 ]
 
@@ -24,11 +24,11 @@ export const profileTypeFilters = [
 export const profileStatusChoices = [
     {
         key: "Active",
-        value: "active"
+        value: true
     },
     {
         key: "Deactivated",
-        value: "deactivated"
+        value: false
     },
 ]
 

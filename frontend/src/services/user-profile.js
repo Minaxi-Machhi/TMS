@@ -6,7 +6,7 @@ export const userProfileServices = {
     async getUserProfileList(params) {
         try {
             const response = await axiosUtility.getResponse({
-                apiName: `/user_profiles/`,
+                apiName: `/user_profile/`,
                 methodType: 'get',
                 payload: {},
                 queryParams: params,
@@ -21,7 +21,7 @@ export const userProfileServices = {
     async createUserProfile(payload) {
         try {
             const response = await axiosUtility.getResponse({
-                apiName: `/user_profiles/`,
+                apiName: `/user_profile/`,
                 methodType: 'post',
                 payload: payload,
                 queryParams: {},

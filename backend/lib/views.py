@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 
-from . import constants, mixins
+from . import mixins
 from .constants.base_constants import Action, Method
 from .helpers import get_response_message
 
@@ -29,7 +29,7 @@ class BaseGenericViewSet(mixins.ViewSetMixin, viewsets.GenericViewSet):
         context["user"] = self.request.user
         return context
 
-    @action(methods=[constants.Method.GET], detail=False)
+    @action(methods=[Method.GET], detail=False)
     def choices(self, queryset, *args, **kwargs):
         response = BaseViewSet.get_choices_for_model_fields(self.model)
         return Response(data=response, status=status.HTTP_200_OK)
@@ -61,7 +61,7 @@ class BaseViewSet(mixins.ViewSetMixin, viewsets.ModelViewSet):
         request_action = self.action
         if request_action == Action.LIST:
             return serializer_dict[request_action]
-        return serializer_dict[constants.Action.RETRIEVE]
+        return serializer_dict[Action.RETRIEVE]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -105,13 +105,13 @@ class BaseViewSet(mixins.ViewSetMixin, viewsets.ModelViewSet):
         }
         return Response(data=response, status=status.HTTP_200_OK)
 
-    @action(methods=[constants.Method.GET], detail=True)
+    @action(methods=[Method.GET], detail=True)
     def view(self, queryset, *args, **kwargs):
         obj = self.get_object()
         serializer = self.view_serializers[self.action](obj, context={"request": self.request})
         return Response(serializer.data)
 
-    @action(methods=[constants.Method.GET], detail=False)
+    @action(methods=[Method.GET], detail=False)
     def select(self, queryset, *args, **kwargs):
         queryset = self.get_queryset()
         filtered_queryset = self.filter_queryset(queryset=queryset)

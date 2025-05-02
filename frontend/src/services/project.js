@@ -1,7 +1,6 @@
 import { axiosUtility } from "@/utilities/axios-utility";
 import { errorHandlerUtility } from "@/utilities/error-handler-utility";
 
-// ====================== project services ====================
 export const projectServices = {
     async getProjectList(params) {
         try {

@@ -57,7 +57,7 @@
 import { onMounted, reactive, ref, watch } from 'vue';
 
 // external imports
-import { projectServices } from '@/services/configurations/project';
+import { projectServices } from '@/services/project';
 import loaderUtility from '@/utilities/loader/loader-utility';
 import { toastUtility } from '@/utilities/toast-utility';
 import useVuelidate from '@vuelidate/core';

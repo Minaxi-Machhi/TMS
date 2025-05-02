@@ -216,16 +216,16 @@ const handleSorting = async (params) => {
   userList.value = [];
 
   const state = params.api.getState();
-  if (!state.sort) {
-    userFilters.value.ordering = null;
-  } else {
-    let sortModelObject = state.sort.sortModel[0];
-    if (sortModelObject.sort === 'asc') {
-      userFilters.value.ordering = sortModelObject.colId;
-    } else if ((sortModelObject.sort === 'desc')) {
-      userFilters.value.ordering = "-" + sortModelObject.colId;
-    }
-  }
+  // if (!state.sort) {
+  //   userFilters.value.ordering = null;
+  // } else {
+  //   let sortModelObject = state.sort.sortModel[0];
+  //   // if (sortModelObject.sort === 'asc') {
+  //   //   userFilters.value.ordering = sortModelObject.colId;
+  //   // } else if ((sortModelObject.sort === 'desc')) {
+  //   //   userFilters.value.ordering = "-" + sortModelObject.colId;
+  //   // }
+  // }
 
   // Save the grid state in local storage
   localStorageUtility.setItemToLocalStorage('user-list-state', params.api.getColumnState());

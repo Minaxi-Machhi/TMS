@@ -11,4 +11,4 @@ class ProjectSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'name', 'description', 'owner', 'collaborators', 'tasks', 'created_at']
+        fields = ['id', 'name', 'description', 'owner', 'collaborators', 'tasks', 'created_at', 'code']

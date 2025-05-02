@@ -6,3 +6,4 @@ typing_extensions==4.13.2
 django-environ==0.8.1
 django-cors-headers==3.10.1
 djangorestframework==3.15.2
+pycryptodome

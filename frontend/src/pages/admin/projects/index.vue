@@ -19,6 +19,7 @@ import { toastUtility } from "@/utilities/toast-utility";
 import Pagination from "@/components/shared/Pagination.vue";
 import AddEditProjectDialog from "./components/add-edit-project-dialog.vue";
 import FilterManager from "./components/filter-manager.vue";
+import gridActions from "./components/grid-actions.vue";
 
 // varibales initialization
 const gridApi = ref(null);
@@ -56,6 +57,12 @@ const columnDefs = ref([
     colId: "owner.username",
     headerName: "Project Owner",
     field: "owner.username",
+  },
+  {
+    colId: "actions",
+    headerName: "Actions",
+    field: "actions",
+    cellRenderer: gridActions,
   },
 ]);
 
@@ -178,7 +185,6 @@ const handlePagination = async ({ page, itemsPerPage }) => {
 
 // method to fetch the order list
 const getProjectList = async (params) => {
-  console.log("hehrr");
   params = { ...params };
   try {
     loaderUtility.show();

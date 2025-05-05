@@ -10,8 +10,6 @@ class Project(BaseModel):
     code = models.CharField(max_length=100, unique=True, verbose_name='Project Code')
     name = models.CharField(max_length=255, verbose_name='Project Name')
     description = models.TextField(blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_projects')
-    collaborators = models.ManyToManyField(User, related_name='projects', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

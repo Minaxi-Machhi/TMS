@@ -36,7 +36,7 @@ export const userProfileServices = {
     async updateUserProfile(id, payload) {
         try {
             const response = await axiosUtility.getResponse({
-                apiName: `/user_profiles/${id}/`,
+                apiName: `/user_profile/${id}/`,
                 methodType: 'put',
                 payload: payload,
                 queryParams: {},
@@ -51,7 +51,7 @@ export const userProfileServices = {
     async getUserProfileDetail(id) {
         try {
             const response = await axiosUtility.getResponse({
-                apiName: `/user_profiles/${id}/`,
+                apiName: `/user_profile/${id}/`,
                 methodType: 'get',
                 payload: {},
                 queryParams: {},
@@ -66,7 +66,7 @@ export const userProfileServices = {
     async getLoggedInUserDetails() {
         try {
             const response = await axiosUtility.getResponse({
-                apiName: `/user_profiles/my_profile/`,
+                apiName: `/user_profile/`,
                 methodType: 'get',
                 payload: {},
                 queryParams: {},
@@ -81,7 +81,7 @@ export const userProfileServices = {
     async changePassword(payload) {
         try {
             const response = await axiosUtility.getResponse({
-                apiName: `/user_profiles/change_password/`,
+                apiName: `/user_profile/change_password/`,
                 methodType: 'post',
                 payload: payload,
                 queryParams: {},

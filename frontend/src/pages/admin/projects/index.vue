@@ -19,7 +19,9 @@ import { toastUtility } from "@/utilities/toast-utility";
 import Pagination from "@/components/shared/Pagination.vue";
 import AddEditProjectDialog from "./components/add-edit-project-dialog.vue";
 import FilterManager from "./components/filter-manager.vue";
-import gridActions from "./components/grid-actions.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 // varibales initialization
 const gridApi = ref(null);
@@ -57,12 +59,6 @@ const columnDefs = ref([
     colId: "owner.username",
     headerName: "Project Owner",
     field: "owner.username",
-  },
-  {
-    colId: "actions",
-    headerName: "Actions",
-    field: "actions",
-    cellRenderer: gridActions,
   },
 ]);
 
@@ -157,7 +153,13 @@ const closeAddEditProjectDialog = async () => {
 
 // method to handle the row click of the grid
 const handleRowClicked = (params) => {
-  params.node.setSelected(true);
+  // params.node.setSelected(true);
+  currentProjectId.value = params.data.id;
+  router.push({
+    name: "project-detail",
+    params: { id: currentProjectId.value },
+  });
+  // drawer.value = true;
 };
 
 // method to handle the checkbox selection of the grid

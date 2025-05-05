@@ -6,6 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from apps.core import models, serializers
+from apps.core.filters import UserFilters
 from apps.core.models import UserProfile, Role
 from lib.constants.base_constants import FieldConstants, Action
 from lib.helpers import update_user_login_attempt
@@ -68,6 +69,7 @@ class UserProfileViewSet(BaseViewSet):
     search_fields = (
         "user__first_name", "user__last_name", "user__username", "user__email", "contact_number",
         'user_role__role_name')
+    filterset_class = UserFilters
     model = models.UserProfile
 
     view_serializers = {

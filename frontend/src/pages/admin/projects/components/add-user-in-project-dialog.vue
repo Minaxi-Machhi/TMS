@@ -2,52 +2,59 @@
   <v-dialog
     v-model="localDialogVisible"
     persistent
-    width="500"
+    width="700"
     :overlay="false"
     transition="dialog-transition"
   >
     <v-card>
       <v-card-title class="px-6 py-2 d-flex align-center justify-space-between">
         <div class="d-flex align-center">
-          <v-icon size="x-small" :color="color" class="mr-3"
-            >ri-projector-line</v-icon
-          >
+          <v-icon size="x-small" :color="color" class="mr-3">
+            ri-projector-line
+          </v-icon>
           <span class="text-h5 text-capitalize"> Invite User </span>
         </div>
         <v-btn icon color="error" variant="plain" @click="closeDialog">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
+      <!-- <v-card-text class="px-6 py-2 d-flex align-center justify-space-between">
+        Your Group :Name
+      </v-card-text> -->
 
       <v-card-text>
         <div class="v-container pa-1 my-2 pb-0">
-          <v-row>
-            <v-col cols="12">
-              <v-autocomplete
-                outlined
-                v-model="addUserInProjectForm.user"
-                :items="userList"
+          <v-row class="d-flex">
+            <v-col cols="10">
+              <v-combobox
+                variant="outlined"
                 density="compact"
-                label="User *"
+                id="add-user"
+                name="add-user"
+                v-model="users"
                 item-title="username"
                 item-value="id"
-                @blur="v$.user.$validate"
-                :error-messages="v$.user.$errors.map((e) => e.$message)"
-                @input="v$.user.$reset"
-                @focus="v$.user.$reset"
-                clear-on-select
-              >
-              </v-autocomplete>
+                :items="userList"
+                label="Add User"
+                chips
+                multiple
+                closable-chips
+              />
+            </v-col>
+            <v-col cols="auto">
+              <v-btn color="success" variant="elevated" @click="submitForm">
+                Invite
+              </v-btn>
             </v-col>
           </v-row>
         </div>
       </v-card-text>
+      <v-row class="ma-0">
+        <!-- <v-col class="ml-3">Members(1)</v-col> -->
+      </v-row>
 
       <v-card-actions class="d-flex justify-end mb-3 mr-4">
-        <v-btn color="error" variant="outlined" @click="resetForm">Reset</v-btn>
-        <v-btn color="success" variant="elevated" @click="submitForm"
-          >Submit</v-btn
-        >
+        <!-- <v-btn color="error" variant="outlined" @click="resetForm">Reset</v-btn> -->
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -63,11 +70,10 @@ import { userProfileServices } from "@/services/user-profile";
 import loaderUtility from "@/utilities/loader/loader-utility";
 import { toastUtility } from "@/utilities/toast-utility";
 import useVuelidate from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
 
 // props
 const props = defineProps({
-  id: {
+  projectData: {
     // type: [Number, null],
     required: true,
   },
@@ -84,17 +90,7 @@ const props = defineProps({
 // initialization of reactive data
 const localDialogVisible = ref(props.dialogVisible);
 const userList = ref([]);
-
-const addUserInProjectForm = reactive({
-  user: null,
-});
-
-const rules = reactive({
-  user: { required },
-});
-
-// vuelidate instance to bind form fields and validation rules
-const v$ = useVuelidate(rules, addUserInProjectForm);
+const users = ref([]);
 
 // define emit
 const emit = defineEmits(["close"]);
@@ -114,7 +110,7 @@ watch(localDialogVisible, (newVal) => {
 
 // method to reset the project form
 const resetForm = async () => {
-  addUserInProjectForm.user = null;
+  users.value = [];
   await v$.value.$reset();
 };
 
@@ -122,7 +118,7 @@ const resetForm = async () => {
 const getUserProfileList = async (params = {}) => {
   try {
     loaderUtility.show();
-    params = { user_type: "Team Member" };
+    params = { user_type: "Team Member", project: props.projectData.id };
     const { data } = await userProfileServices.getUserProfileList(params);
     userList.value = data.results;
   } catch (error) {
@@ -134,18 +130,13 @@ const getUserProfileList = async (params = {}) => {
 
 // method to submit the project form
 const submitForm = async () => {
-  const isValidate = await v$.value.$validate();
-  if (!isValidate) {
-    toastUtility.showError("Please correct all the errors to submit the form!");
-    return;
-  }
   try {
     loaderUtility.show();
-    if (props.id) {
-      const res = await projectServices.addUserInProject(
-        props.id,
-        addUserInProjectForm
-      );
+    if (props.projectData.id) {
+      let userIds = users.value.map((u) => u.id);
+      const res = await projectServices.addUserInProject(props.projectData.id, {
+        user: userIds.join(""),
+      });
       toastUtility.showSuccess(`User has been added in Project successfully.`);
     }
     closeDialog();

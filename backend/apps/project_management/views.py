@@ -38,22 +38,18 @@ class ProjectViewSet(BaseViewSet):
         context["request"] = self.request
         return context
 
-    @action(methods=[Method.PATCH], detail=True)
+    @action(methods=[Method.POST], detail=True)
     def add_user(self, request, *args, **kwargs):
         project = self.get_object()
-        user_id = request.data.get("user")
+        user_ids = request.data.get("user_ids")
 
-        if not user_id:
-            return Response({"error": "user is required"}, status=status.HTTP_400_BAD_REQUEST)
+        if not user_ids:
+            return Response({"error": "users is required"}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            user = UserProfile.objects.get(pk=user_id)
-        except UserProfile.DoesNotExist:
-            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        users = UserProfile.objects.filter(id__in=user_ids)
+        for user in users:
+            if ProjectUser.objects.filter(project=project, project_user=user).exists():
+                return Response({"message": "User already added to project"}, status=status.HTTP_200_OK)
 
-        if ProjectUser.objects.filter(project=project, project_user=user).exists():
-            return Response({"message": "User already added to project"}, status=status.HTTP_200_OK)
-
-        ProjectUser.objects.create(project=project, project_user=user)
-
-        return Response({"message": "User added to project"}, status=status.HTTP_201_CREATED)
+            ProjectUser.objects.create(project=project, project_user=user)
+        return Response({"message": "Users added to project"}, status=status.HTTP_201_CREATED)

@@ -95,8 +95,8 @@ export const projectServices = {
   async addUserInProject(id, payload) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/${id}/add_user`,
-        methodType: "patch",
+        apiName: `/projects/${id}/add_user/`,
+        methodType: "post",
         payload: payload,
         queryParams: {},
         headers: {},

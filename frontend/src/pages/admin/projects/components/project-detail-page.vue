@@ -29,7 +29,7 @@ const addUser = () => {
 
 const closeAddUserInProjectDialog = async () => {
   addUserInProjectDialogVisible.value = false;
-  await getProjectDetail();
+  await getProjectDetail(projectId.value);
 };
 
 onMounted(async () => {
@@ -56,6 +56,14 @@ onMounted(async () => {
         <v-row>
           <v-col cols="6"> Code: {{ projectData.code }} </v-col>
           <v-col cols="6"> Description: {{ projectData.description }} </v-col>
+          <v-col cols="6">
+            Members:
+            <b>
+              <span v-for="user in projectData.project_users" :key="user">{{
+                user.username
+              }}</span>
+            </b>
+          </v-col>
         </v-row>
       </v-card-text>
     </v-card>
@@ -63,7 +71,7 @@ onMounted(async () => {
     <AddUserInProjectDialog
       v-if="addUserInProjectDialogVisible"
       :dialogVisible="addUserInProjectDialogVisible"
-      :id="projectId"
+      :projectData="projectData"
       @close="closeAddUserInProjectDialog"
     >
     </AddUserInProjectDialog>

@@ -56,9 +56,9 @@ const columnDefs = ref([
     field: "created_at",
   },
   {
-    colId: "owner.username",
+    colId: "owner_name",
     headerName: "Project Owner",
-    field: "owner.username",
+    field: "owner_name",
   },
 ]);
 

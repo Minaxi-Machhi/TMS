@@ -55,6 +55,9 @@ class UserProfile(BaseModel):
         ordering = BaseModel.ORDERING
         verbose_name_plural = "User Profiles"
 
+    def __str__(self):
+        return f'{self.user.username}'
+
     @property
     def full_name(self):
         return f'{self.user.first_name} {self.user.last_name}'

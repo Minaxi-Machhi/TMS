@@ -28,7 +28,7 @@ const router = createRouter({
         {
           path: "tasks",
           name: "task-list",
-          component: () => import("@/pages/admin/projects/index.vue"),
+          component: () => import("@/pages/admin/tasks/index.vue"),
         },
         {
           path: "users",

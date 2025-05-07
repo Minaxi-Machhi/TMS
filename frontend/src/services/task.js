@@ -1,11 +1,11 @@
 import { axiosUtility } from "@/utilities/axios-utility";
 import { errorHandlerUtility } from "@/utilities/error-handler-utility";
 
-export const projectServices = {
-  async getProjectList(params) {
+export const taskServices = {
+  async getTaskList(params) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/`,
+        apiName: `/tasks/`,
         methodType: "get",
         payload: {},
         queryParams: params,
@@ -17,10 +17,10 @@ export const projectServices = {
       throw messages;
     }
   },
-  async createProject(payload) {
+  async createTask(payload) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/`,
+        apiName: `/tasks/`,
         methodType: "post",
         payload: payload,
         queryParams: {},
@@ -32,10 +32,10 @@ export const projectServices = {
       throw messages;
     }
   },
-  async updateProject(id, payload) {
+  async updateTask(id, payload) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/${id}/`,
+        apiName: `/tasks/${id}/`,
         methodType: "put",
         payload: payload,
         queryParams: {},
@@ -47,10 +47,10 @@ export const projectServices = {
       throw messages;
     }
   },
-  async getProjectDetail(id) {
+  async getTaskDetail(id) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/${id}/`,
+        apiName: `/tasks/${id}/`,
         methodType: "get",
         payload: {},
         queryParams: {},
@@ -65,7 +65,7 @@ export const projectServices = {
   async getSelectionList(params) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/select/`,
+        apiName: `/tasks/select/`,
         methodType: "get",
         payload: {},
         queryParams: params,
@@ -80,7 +80,7 @@ export const projectServices = {
   async getSelectionListForRandomDataGeneration(params) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/select_for_random_data_generation/`,
+        apiName: `/tasks/select_for_random_data_generation/`,
         methodType: "get",
         payload: {},
         queryParams: params,
@@ -92,28 +92,13 @@ export const projectServices = {
       throw messages;
     }
   },
-  async addUserInProject(id, payload) {
+  async addUserInTask(id, payload) {
     try {
       const response = await axiosUtility.getResponse({
-        apiName: `/projects/${id}/add_user/`,
+        apiName: `/tasks/${id}/add_user/`,
         methodType: "post",
         payload: payload,
         queryParams: {},
-        headers: {},
-      });
-      return response;
-    } catch (error) {
-      const { messages } = errorHandlerUtility.handleError(error);
-      throw messages;
-    }
-  },
-  async getBucketList(params) {
-    try {
-      const response = await axiosUtility.getResponse({
-        apiName: `/bucket/`,
-        methodType: "get",
-        payload: {},
-        queryParams: params,
         headers: {},
       });
       return response;

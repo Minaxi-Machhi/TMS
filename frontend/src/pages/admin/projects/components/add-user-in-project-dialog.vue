@@ -135,7 +135,7 @@ const submitForm = async () => {
     if (props.projectData.id) {
       let userIds = users.value.map((u) => u.id);
       const res = await projectServices.addUserInProject(props.projectData.id, {
-        user: userIds.join(""),
+        user_ids: userIds.join(""),
       });
       toastUtility.showSuccess(`User has been added in Project successfully.`);
     }

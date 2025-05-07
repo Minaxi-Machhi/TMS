@@ -9,7 +9,7 @@ from lib.serializers import DynamicFieldsModelSerializer
 class ProjectSerializer(DynamicFieldsModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
     project_users = serializers.SerializerMethodField(read_only=True)
-    owner_name = serializers.CharField(source='owner.username')
+    owner_name = serializers.CharField(source='owner.username', read_only=True)
 
     class Meta:
         model = Project

@@ -122,5 +122,20 @@ export const projectServices = {
       throw messages;
     }
   },
+  async createBucket(payload) {
+    try {
+      const response = await axiosUtility.getResponse({
+        apiName: `/bucket/`,
+        methodType: "post",
+        payload: payload,
+        queryParams: {},
+        headers: {},
+      });
+      return response;
+    } catch (error) {
+      const { messages } = errorHandlerUtility.handleError(error);
+      throw messages;
+    }
+  },
 };
 // =================================================================

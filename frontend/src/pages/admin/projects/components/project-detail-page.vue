@@ -10,12 +10,47 @@ const route = useRouter();
 const projectData = ref({});
 const projectId = ref("");
 const addUserInProjectDialogVisible = ref(false);
+const bucketList = ref([]);
+const showTextField = ref(false);
+const bucket_name = ref("");
 
 const getProjectDetail = async (id) => {
   try {
     loaderUtility.show();
     const { data } = await projectServices.getProjectDetail(id);
     projectData.value = data;
+  } catch (error) {
+    toastUtility.showError(error);
+  } finally {
+    loaderUtility.hide();
+  }
+};
+const getBucketList = async (id) => {
+  try {
+    loaderUtility.show();
+    const { data } = await projectServices.getBucketList({
+      project: id,
+      limit: "all",
+    });
+    if (data && data.results) {
+      bucketList.value = data.results;
+    }
+  } catch (error) {
+    toastUtility.showError(error);
+  } finally {
+    loaderUtility.hide();
+  }
+};
+
+const addBucket = async () => {
+  try {
+    loaderUtility.show();
+    let payload = { project: projectId.value, name: bucket_name.value };
+    const res = await projectServices.createBucket(payload);
+    showTextField.value = false;
+    bucket_name.value = null;
+    toastUtility.showSuccess(`Bucket has been added successfully.`);
+    getBucketList(projectId.value);
   } catch (error) {
     toastUtility.showError(error);
   } finally {
@@ -32,9 +67,14 @@ const closeAddUserInProjectDialog = async () => {
   await getProjectDetail(projectId.value);
 };
 
+const addTask = (bucketId) => {
+  console.log("bucketId", bucketId);
+};
+
 onMounted(async () => {
   projectId.value = route?.currentRoute?.value.params.id;
   projectId.value ? await getProjectDetail(projectId.value) : null;
+  await getBucketList(projectId.value);
 });
 </script>
 
@@ -63,6 +103,52 @@ onMounted(async () => {
                 user.username
               }}</span>
             </b>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-text>
+        <v-row class="ma-0">
+          <v-col
+            cols="2"
+            v-for="bucket in bucketList.reverse()"
+            :key="bucket.id"
+            class="mr-4"
+          >
+            <h4 class="mb-2">{{ bucket.name }}</h4>
+            <v-card @click="addTask(bucket.id)">
+              <v-card-text class="pa-2 text-primary">
+                <v-icon>mdi-plus</v-icon> Add Task
+              </v-card-text>
+            </v-card>
+            <!-- <div
+              v-for="task in filteredTasks(bucket.id, status.value)"
+              :key="task.id"
+              class="task"
+            >
+              {{ task.title }}
+            </div> -->
+          </v-col>
+          <v-col cols="2">
+            <v-text-field
+              v-if="showTextField"
+              v-model="bucket_name"
+              label="Bucket Name"
+              @keypress.enter="addBucket"
+              @blur="
+                !bucket_name ? (showTextField = false) : (showTextField = true)
+              "
+            >
+            </v-text-field>
+            <h4
+              v-else
+              class="mb-2"
+              role="button"
+              tabindex="0"
+              @click="showTextField = true"
+            >
+              Add a new bucket
+            </h4>
           </v-col>
         </v-row>
       </v-card-text>

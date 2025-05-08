@@ -12,11 +12,11 @@ class TaskSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Task
         fields = ['id', 'title', 'description', 'project', 'assigned_to', 'due_date',
-                  'priority', 'status', 'created_at', 'updated_at']
+                  'priority', 'status', 'created_at', 'updated_at', 'bucket']
 
 
 class BucketSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Bucket
-        fields = ['name']
+        fields = ['id', 'name']
 

@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, reactive, ref, watch } from "vue";
 import { projectServices } from "@/services/project";
+import { taskServices } from "@/services/task";
 import loaderUtility from "@/utilities/loader/loader-utility";
 import { toastUtility } from "@/utilities/toast-utility";
 import { useRouter } from "vue-router";
@@ -13,6 +14,7 @@ const addUserInProjectDialogVisible = ref(false);
 const bucketList = ref([]);
 const showTextField = ref(false);
 const bucket_name = ref("");
+const taskList = ref([]);
 
 const getProjectDetail = async (id) => {
   try {
@@ -58,6 +60,23 @@ const addBucket = async () => {
   }
 };
 
+const getTaskList = async (id) => {
+  try {
+    loaderUtility.show();
+    const { data } = await taskServices.getTaskList({
+      project: id,
+      limit: "all",
+    });
+    if (data && data.results) {
+      taskList.value = data.results;
+    }
+  } catch (error) {
+    toastUtility.showError(error);
+  } finally {
+    loaderUtility.hide();
+  }
+};
+
 const addUser = () => {
   addUserInProjectDialogVisible.value = true;
 };
@@ -75,6 +94,7 @@ onMounted(async () => {
   projectId.value = route?.currentRoute?.value.params.id;
   projectId.value ? await getProjectDetail(projectId.value) : null;
   await getBucketList(projectId.value);
+  await getTaskList(projectId.value);
 });
 </script>
 
@@ -121,17 +141,34 @@ onMounted(async () => {
                 <v-icon>mdi-plus</v-icon> Add Task
               </v-card-text>
             </v-card>
-            <!-- <div
-              v-for="task in filteredTasks(bucket.id, status.value)"
+            <div
+              v-for="task in taskList.filter((t) => t.bucket == bucket.id)"
               :key="task.id"
-              class="task"
+              class="mt-4"
             >
-              {{ task.title }}
-            </div> -->
+              <v-card>
+                <v-card-text class="pa-1">
+                  <v-chip label color="primary" size="x-small">
+                    {{ task.project }} </v-chip
+                  ><br />
+                  <span class="ml-2">{{ task.title }}</span
+                  ><br />
+                  <span class="text-body-2 ml-2">{{ task.description }}</span>
+                </v-card-text>
+                <v-divider></v-divider>
+                <span class="text-caption ml-3">
+                  <v-icon size="small">mdi-calendar</v-icon>
+                  {{ task.due_date }}
+                </span>
+              </v-card>
+            </div>
           </v-col>
           <v-col cols="2">
             <v-text-field
               v-if="showTextField"
+              hide-details="auto"
+              flat
+              density="compact"
               v-model="bucket_name"
               label="Bucket Name"
               @keypress.enter="addBucket"

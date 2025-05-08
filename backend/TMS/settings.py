@@ -105,6 +105,40 @@ DATABASES = {
 }
 
 # --------------------------- REST and CORS Configuration -----------------------
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    # 'DATETIME_FORMAT': "%Y-%m-%d %H:%M",
+    # 'TIME_FORMAT': "%H:%M",
+    # 'DATE_FORMAT': "%Y-%m-%d",
+    # 'DATE_INPUT_FORMATS': ["%m/%d/%Y", "%m-%d-%Y",
+    #                        "%d-%m-%Y", "%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d", "%Y-%m-%dT%H:%M:%S.%fZ"],
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
+    #                             'django_filters.rest_framework.filters.OrderingFilter'],
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # "PAGE_SIZE": 20,
+    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'lib.renderers.CustomRenderer',
+    #     'rest_framework.renderers.JSONRenderer',
+    #     'rest_framework.renderers.BrowsableAPIRenderer',
+    #     'drf_excel.renderers.XLSXRenderer',
+    # ),
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     'rest_framework.throttling.UserRateThrottle',
+    #
+    # ),
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'loginAttempts': '2/min',
+    #     'user': '1000/min',
+    # }
+}
+
 FRONT_END_DOMAIN = env.str("FRONT_END_DOMAIN", default="http://localhost:3000")
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_ALL_ORIGINS = True
@@ -166,3 +200,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CIPHER_KEY_PASSWORD = "GCQPKGDWPVYGVMFN"

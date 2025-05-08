@@ -15,16 +15,25 @@ const router = createRouter({
           component: () => import("@/pages/admin/dashboard/index.vue"),
         },
         {
-          path: "projects",
+          path: "project",
           name: "project-list",
+          component: () => import("@/pages/admin/projects/index.vue"),
+        },
+        {
+          path: "project/detail/:id",
+          name: "project-detail",
           component: () =>
-            import("@/pages/admin/projects/index.vue"),
+            import("@/pages/admin/projects/components/project-detail-page.vue"),
         },
         {
           path: "tasks",
           name: "task-list",
-          component: () =>
-            import("@/pages/admin/projects/index.vue"),
+          component: () => import("@/pages/admin/tasks/index.vue"),
+        },
+        {
+          path: "users",
+          name: "user-list",
+          component: () => import("@/pages/admin/users/index.vue"),
         },
         {
           path: "users",

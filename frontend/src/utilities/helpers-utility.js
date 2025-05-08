@@ -95,8 +95,8 @@ export const getOrderFinancialStateColor = (financialState) => {
 
 export const getProfileTypeColor = (profileType) => {
     switch (profileType) {
-        case 'system_admin': return '#C62828';
-        case 'normal': return '#1B5E20';
+        case 'System Admin': return '#C62828';
+        case 'Team Member': return '#1B5E20';
         default: return '#9E9E9E';
     }
 }

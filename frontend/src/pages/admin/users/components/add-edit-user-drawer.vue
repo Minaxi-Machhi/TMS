@@ -70,18 +70,18 @@
                         </InputField>
                     </v-col>
                     <v-col cols="6">
-                        <v-autocomplete outlined v-model="addEditUserForm.profile_type" :items="profileTypeChoices"
+                        <v-autocomplete outlined v-model="addEditUserForm.user_type" :items="profileTypeChoices"
                             density="compact" label="Profile Type *" item-title="key" item-value="value"
-                            @blur="v$.profile_type.$validate"
-                            :error-messages="v$.profile_type.$errors.map(e => e.$message)"
-                            @input="v$.profile_type.$reset" @focus="v$.profile_type.$reset" clear-on-select>
+                            @blur="v$.user_type.$validate"
+                            :error-messages="v$.user_type.$errors.map(e => e.$message)"
+                            @input="v$.user_type.$reset" @focus="v$.user_type.$reset" clear-on-select>
                         </v-autocomplete>
                     </v-col>
                     <v-col cols="6">
-                        <v-autocomplete outlined v-model="addEditUserForm.status" :items="profileStatusChoices"
+                        <v-autocomplete outlined v-model="addEditUserForm.is_active" :items="profileStatusChoices"
                             density="compact" label="Status *" item-title="key" item-value="value"
-                            @blur="v$.status.$validate" :error-messages="v$.status.$errors.map(e => e.$message)"
-                            @input="v$.status.$reset" @focus="v$.status.$reset" clear-on-select>
+                            @blur="v$.is_active.$validate" :error-messages="v$.is_active.$errors.map(e => e.$message)"
+                            @input="v$.is_active.$reset" @focus="v$.is_active.$reset" clear-on-select>
                         </v-autocomplete>
                     </v-col>
                 </v-row>
@@ -133,8 +133,8 @@ const addEditUserForm = reactive({
     password: null,
     email: null,
     contact_number: null,
-    profile_type: 'normal',
-    status: 'active'
+    user_type: 'normal',
+    is_active: true
 });
 
 const rules = reactive({
@@ -144,8 +144,8 @@ const rules = reactive({
     password: { required: props.id ? '' : required },
     email: { email },
     contact_number: {},
-    profile_type: { required },
-    status: { required }
+    user_type: { required },
+    is_active: { required }
 });
 
 // vuelidate instance to bind form fields and validation rules
@@ -167,8 +167,8 @@ const resetForm = async () => {
     addEditUserForm.password = null;
     addEditUserForm.email = null;
     addEditUserForm.contact_number = null;
-    addEditUserForm.profile_type = null;
-    addEditUserForm.status = null;
+    addEditUserForm.user_type = null;
+    addEditUserForm.is_active = null;
     await v$.value.$reset();
 }
 
@@ -184,8 +184,8 @@ const getUserProfileDetail = async (id) => {
         addEditUserForm.password = data.password;
         addEditUserForm.email = data.email;
         addEditUserForm.contact_number = data.contact_number;
-        addEditUserForm.profile_type = data.profile_type;
-        addEditUserForm.status = data.status;
+        addEditUserForm.user_type = data.user_type;
+        addEditUserForm.is_active = data.is_active;
         userCreationTimeStamp.value = data.added_on;
     } catch (error) {
         toastUtility.showError(error);

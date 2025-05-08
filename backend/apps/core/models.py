@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.functional import cached_property
 
 from lib.base_models import BaseModel
 from lib.constants import base_constants
@@ -53,3 +54,32 @@ class UserProfile(BaseModel):
     class Meta:
         ordering = BaseModel.ORDERING
         verbose_name_plural = "User Profiles"
+
+    def __str__(self):
+        return f'{self.user.username}'
+
+    @property
+    def full_name(self):
+        return f'{self.user.first_name} {self.user.last_name}'
+
+    @cached_property
+    def username(self):
+        return f'{self.user.username}'
+
+    @cached_property
+    def email(self):
+        return f'{self.user.email}'
+
+    @cached_property
+    def password(self):
+        return f'{self.user.email}'
+
+    @cached_property
+    def first_name(self):
+        return f'{self.user.first_name}'
+
+    @cached_property
+    def last_name(self):
+        return f'{self.user.last_name}'
+
+

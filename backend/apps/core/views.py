@@ -6,6 +6,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from apps.core import models, serializers
+from apps.core.filters import UserFilters
+from apps.core.models import UserProfile, Role
 from lib.constants.base_constants import FieldConstants, Action
 from lib.helpers import update_user_login_attempt
 from lib.views import BaseViewSet
@@ -67,10 +69,12 @@ class UserProfileViewSet(BaseViewSet):
     search_fields = (
         "user__first_name", "user__last_name", "user__username", "user__email", "contact_number",
         'user_role__role_name')
+    filterset_class = UserFilters
     model = models.UserProfile
 
     view_serializers = {
         Action.LIST: serializers.UserProfileSerializer,
+        Action.CREATE: serializers.UserProfileSerializer,
         Action.RETRIEVE: serializers.UserProfileSerializer,
         Action.VIEW: serializers.UserProfileSerializer,
         Action.SELECT: serializers.UserProfileSerializer,
@@ -78,14 +82,14 @@ class UserProfileViewSet(BaseViewSet):
     }
 
     def get_queryset(self, *args, **kwargs):
-        return UserProfile.objects.select_related("user_role").all()
+        # return UserProfile.objects.select_related("user_role").all()
+        return UserProfile.objects.all()
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
         roles = Role.objects.filter()
         context["all_roles"] = roles
         context["user"] = self.request.user
-        context["default_branch"] = self.request.user.user_profile.default_branch
         return context
 
 

@@ -54,4 +54,12 @@ onMounted(async () => {
       color: getColor('pink'),
     }"
   />
+  <VerticalNavLink
+    :item="{
+      title: 'Users',
+      icon: 'ri-projector-line',
+      name: 'user-list',
+      color: getColor('pink'),
+    }"
+  />
 </template>
